@@ -1,4 +1,4 @@
-function TestForm(text,Type, Name,Value, big) {
+function TestForm(text,Type, Name,Value, big, setReview) {
     let cols = null;
     let rows = null;
     if (big) {
@@ -12,6 +12,7 @@ function TestForm(text,Type, Name,Value, big) {
             rows={rows}
             value={Value}
             type= {Type}
+            onChange={setReview}
         >
         </textarea>
     </label>;
