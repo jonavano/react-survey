@@ -3,9 +3,8 @@ import RadioButtons from "./RadioButtons";
 import TextForm from "./TextForm";
 import { useState } from "react";
 
-function SurveyQuestions() {
+function SurveyQuestions({answersList, setAnswersList}) {
     const duckFeatures = ["Its yellow!", "It squeeks!", "it has a logo!", "its big!"]
-
     const spendTimeWithDuck = ["Swimming", "Bathing", "Chatting", "I don't like to spend time with it"]
 
     const [form, setForm] = useState({
@@ -61,11 +60,6 @@ function SurveyQuestions() {
             });
         }
         if (inputType === "checkbox" && inputName === "worst-features") {
-            console.log(inputChecked)
-            console.log(inputName)
-            console.log(inputType)
-            console.log(inputValue)
-
             setForm(prev => {
                 const updated = inputChecked
                     ? [...prev.worstFeatures, inputValue]
@@ -78,6 +72,9 @@ function SurveyQuestions() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setAnswersList([...answersList, form])
+        console.log(form)
+
         setForm({
         username: "",
         email: "",
@@ -89,12 +86,11 @@ function SurveyQuestions() {
         worstFeatures: [],
         spendTime: []
     })
-        console.log(form)
     }
 
     return <>
         <form className="form" onSubmit={handleSubmit}>
-            <h2> More complaints</h2>
+            <h2>Tell us how your think about your rubber ducky!</h2>
 
             <CheckList
                 form={form}
@@ -110,8 +106,6 @@ function SurveyQuestions() {
                 options={duckFeatures}
                 name="worst-Features"
             />
-
-
 
             {RadioButtons(form, handleChange, "consistency")}
             {RadioButtons(form, handleChange, "color")}
@@ -139,7 +133,7 @@ function SurveyQuestions() {
             </label>
 
             <label>
-                Leave us your email pretty please??
+                Leave us your email pretty please?
                 <input
                     type="email"
                     name="email"
